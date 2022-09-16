@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AdivinaElNumero</string>
+    <string name="adivina_header">Adivina el número del 1 al 10</string>
+    <string name="scry_a_number_1_to_10">Scry a number ( 1 to 10 )</string>
+    <string name="check">Check</string>
+    <string name="number">Number:</string>
+</resources>
