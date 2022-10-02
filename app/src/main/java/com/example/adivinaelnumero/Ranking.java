@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ranking extends AppCompatActivity {
-    // private HashMap<String, String> hash = new HashMap<String, String>();
     private ArrayList<String> ranking = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,29 +29,10 @@ public class Ranking extends AppCompatActivity {
             }
         });
 
-        TextView userNames = findViewById(R.id.userNames);
-        TextView scores = findViewById(R.id.Scores);
-
         ranking = getIntent().getStringArrayListExtra("ranking");
 
-        String totalUsernames = "";
-        String totalScores = "";
 
-        System.out.println("Size" + ranking.size());
-        for(int i = 0; i < ranking.size(); i += 2)
-        {
-            totalUsernames = totalUsernames + ranking.get(i) + "\n\n";
-            totalScores = totalScores + ranking.get(i+1) + "\n\n";
-        }
-
-        userNames.setText(totalUsernames);
-        scores.setText(totalScores);
 
         System.out.println("UPDATED!");
-
-
-
-
-
     }
 }
