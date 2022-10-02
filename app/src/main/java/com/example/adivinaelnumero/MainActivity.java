@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
             ranking = parametros.getStringArrayList("ranking");
         }
 
-        secretNum = genRandomNumber();
+        secretNum = 5;
+        // secretNum = genRandomNumber();
 
         Button checkBtn = findViewById(R.id.checkBtn);
         EditText userNumber = findViewById(R.id.inputNumber);
