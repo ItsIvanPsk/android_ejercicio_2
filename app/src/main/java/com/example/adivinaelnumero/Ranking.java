@@ -4,14 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Ranking extends AppCompatActivity {
-    private ArrayList<String> ranking = new ArrayList<>();
+    private ArrayList<Record> ranking = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,16 +25,31 @@ public class Ranking extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Ranking.this, MainActivity.class);
-                System.out.println("Intent generated");
-                intent.putExtra("ranking", ranking);
                 Ranking.this.startActivity(intent);
-                System.out.println("START");
             }
         });
+        ranking = MainActivity.ranking;
 
-        ranking = getIntent().getStringArrayListExtra("ranking");
+        // Inicialitzem l'ArrayAdapter amb el layout pertinent
+        ArrayAdapter<Record> adapter = new ArrayAdapter<Record>( this, android.R.layout.simple_list_item_1, ranking )
+        {
+            @Override
+            public View getView(int pos, View convertView, ViewGroup container)
+            {
+                // getView ens construeix el layout i hi "pinta" els valors de l'element en la posició pos
+                if( convertView==null ) {
+                    // inicialitzem l'element la View amb el seu layout
+                    convertView = getLayoutInflater().inflate(R.layout.record_layout, container, false);
+                }
+                // "Pintem" valors (també quan es refresca)
+                ((TextView) convertView.findViewById(R.id.nom)).setText(getItem(pos).nom);
+                ((TextView) convertView.findViewById(R.id.intents)).setText(Integer.toString(getItem(pos).intents));
+                return convertView;
+            }
+        };
 
-
+        ListView lv = (ListView) findViewById(R.id.list_view);
+        lv.setAdapter(adapter);
 
         System.out.println("UPDATED!");
     }
