@@ -20,16 +20,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private Integer count;
     private int secretNum;
-    private ArrayList<String> ranking = new ArrayList<>();
+    static ArrayList<String> ranking = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Bundle parametros = this.getIntent().getExtras();
-        if(parametros !=null){
-            ranking = parametros.getStringArrayList("ranking");
-        }
 
         secretNum = genRandomNumber();
 
@@ -78,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
-
                         EditText usernameInput = new EditText(MainActivity.this);
                         usernameInput.setHint("Username");
                         builder.setView(usernameInput);
@@ -90,11 +84,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, Ranking.class);
                                 ranking.add(usernameInput.getText().toString());
                                 ranking.add(count.toString());
-
-                                intent.putExtra("ranking", ranking);
-
                                 MainActivity.this.startActivity(intent);
-                                System.out.println("POST START!!");
                                 count = 0;
                                 userNumber.setText("");
                                 cantTries.setText(count.toString());
@@ -132,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                         showToast(con, txt, duration);
                     }
                     str_tries.append("You have tried " + userNumber.getText().toString() + ".\n");
-                    // str_tries.getParent();
                     tv_count.setText(count.toString());
                     userNumber.setText("");
                 }
@@ -156,13 +145,5 @@ public class MainActivity extends AppCompatActivity {
     private int genRandomNumber()
     {
         return (int)(Math.random() * 10);
-    }
-
-    public void goToRank() {
-
-    }
-    private void setCount(int count)
-    {
-        this.count = count;
     }
 }
