@@ -3,6 +3,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,7 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Ranking extends AppCompatActivity {
-    private ArrayList<String> ranking = new ArrayList<>();
+    private ArrayList<Scores> ranking = new ArrayList<>();
+    RecyclerView recycler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +32,13 @@ public class Ranking extends AppCompatActivity {
             }
         });
 
-        ranking = getIntent().getStringArrayListExtra("ranking");
+        ranking = MainActivity.ranking;
 
+        recycler= findViewById(R.id.recyclerView);
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        DataAdapter adapter = new DataAdapter(ranking);
+        recycler.setAdapter(adapter);
 
 
         System.out.println("UPDATED!");

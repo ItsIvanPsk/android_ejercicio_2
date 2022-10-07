@@ -20,16 +20,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private Integer count;
     private int secretNum;
-    private ArrayList<String> ranking = new ArrayList<>();
+    static ArrayList<Scores> ranking = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Bundle parametros = this.getIntent().getExtras();
-        if(parametros !=null){
-            ranking = parametros.getStringArrayList("ranking");
-        }
 
         secretNum = genRandomNumber();
 
@@ -88,13 +83,8 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
 
                                 Intent intent = new Intent(MainActivity.this, Ranking.class);
-                                ranking.add(usernameInput.getText().toString());
-                                ranking.add(count.toString());
-
-                                intent.putExtra("ranking", ranking);
-
+                                ranking.add(new Scores(usernameInput.getText().toString(), count));
                                 MainActivity.this.startActivity(intent);
-                                System.out.println("POST START!!");
                                 count = 0;
                                 userNumber.setText("");
                                 cantTries.setText(count.toString());
@@ -156,13 +146,5 @@ public class MainActivity extends AppCompatActivity {
     private int genRandomNumber()
     {
         return (int)(Math.random() * 10);
-    }
-
-    public void goToRank() {
-
-    }
-    private void setCount(int count)
-    {
-        this.count = count;
     }
 }
